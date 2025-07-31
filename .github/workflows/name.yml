@@ -1,0 +1,8 @@
+name: Hello Mutesi
+on: [push]
+jobs:
+  say-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say My Name
+        run: echo "Mutesi Joan"
