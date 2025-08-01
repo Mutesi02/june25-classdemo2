@@ -1,12 +1,13 @@
-name: Python Test and Lint
+name: Python test
 
 on: [push, pull_request]
 
 jobs:
   tests:
     runs-on: ubuntu-latest
+    needs: install
     env:
-      VENV: venv
+        VENV: venv
 
     steps:
       - name: Checkout code
@@ -28,28 +29,6 @@ jobs:
         run: |
           source $VENV/bin/activate
           pytest
-
-  lint:
-    needs: tests
-    runs-on: ubuntu-latest
-    env:
-      VENV: venv
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m venv $VENV
-          source $VENV/bin/activate
-          pip install -r requirements.txt
-          pip install pylint
 
       - name: Run Pylint
         run: |
